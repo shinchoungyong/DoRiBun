@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Database.BadgeMapper">
+
+	<insert id="assignBadge" parameterType="BadgeDTO">
+		insert into badge_table (bg_idx, bg_name, bg_info, user_id, created_at, bg_img)
+        values (#{bg_idx}, #{bg_name}, #{bg_info}, #{user_id}, sysdate, #{bg_img})
+	</insert>
+	
+	<insert id="assignBadgeNewbie" parameterType="UserDTO">
+		insert into badge_table (bg_idx, bg_name, bg_info, user_id, created_at, bg_img)
+        values ('B00001', '비기너뱃지', '가입시 부여', #{user_id}, sysdate, 'B00001.png')
+	</insert>
+	
+	<select id="loadingBadge" parameterType="UserDTO" resultType="BadgeDTO">
+	 	select * from badge_table where user_id = #{user_id}
+	</select>
+	
+	<!-- 관리자 계정을 접속해서 회원정보를 삭제 할 때 user_id에 대한 자식테이블(board_table)삭제 기능  -->
+	<delete id="deleteBadgeTable" parameterType="UserDTO">
+		delete from badge_table where user_id = #{user_id}
+	</delete>
+
+</mapper>

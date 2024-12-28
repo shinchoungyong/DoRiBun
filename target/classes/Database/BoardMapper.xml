@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Database.BoardMapper">
+
+	<insert id="uploadBoard" parameterType="BoardDTO">
+		insert into board_table (
+		b_idx,
+		b_title,
+		b_content,
+		b_file,
+		created_at,
+		user_id,
+		b_confirm_hashtag
+		) values (
+		board_table_seq.nextval,
+		#{b_title},
+		#{b_content},
+		#{b_file},
+		sysdate,
+		#{user_id},
+		#{b_confirm_hashtag}
+		)
+	</insert>
+	
+	<select id="allBoard" resultType="BoardDTO">
+		select * from board_table order by b_idx desc
+	</select>
+	
+	<select id="userBoard" parameterType="UserDTO" resultType="BoardDTO">
+		select * from board_table where user_id=#{user_id} order by b_idx desc
+	</select>
+	<!-- 관리자 계정을 접속해서 회원정보를 삭제 할 때 user_id에 대한 자식테이블(board_table)삭제 기능  -->
+	<delete id="deleteUserFromBoardTable" parameterType="UserDTO">
+		delete from board_table where user_id = #{user_id}
+	</delete>
+	
+	<update id ="updateLikeCntPlus" parameterType="LikeDTO">
+		UPDATE board_table SET b_likes = b_likes + 1 WHERE b_idx = #{b_idx}
+	</update>
+	
+	<update id ="updateLikeCntMinus" parameterType="LikeDTO">
+		UPDATE board_table SET b_likes = b_likes - 1 WHERE b_idx = #{b_idx}
+	</update>
+	
+	<select id="likedPosts" parameterType="BoardDTO" resultType="BoardDTO" >
+		select * from board_table where b_idx = #{b_idx}
+	</select>
+	
+	<!-- 9/24 1:44분 신고내역창에서 b_idx값을 불러오기 위한 작업 -->
+	<select id="BringIndex"  resultType="BoardDTO" parameterType="BoardDTO">
+		select * from board_table where b_idx = #{b_idx} 
+	</select>
+
+</mapper>

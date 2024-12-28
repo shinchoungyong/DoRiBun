@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Database.ReportMapper">
+	<insert id="insert" parameterType="ReportDTO">
+		INSERT INTO report_table
+		(report_idx, b_idx, user_id, report_reason, reported_at) VALUES
+		(report_table_seq.nextval, #{b_idx}, #{user_id}, #{report_reason},
+		sysdate)
+	</insert>
+
+	<select id="allreports" parameterType="ReportDTO"
+		resultType="ReportDTO"> select * from report_table where user_id = #{user_id} and
+		report_reason = #{report_reason} and reported_at = #{reported_at}
+	</select>
+
+	<!-- 관리자삭제기능으로 Report테이블에 FK로 연결된 관련 user_id삭제 -->
+	<delete id="DeleteReportTable" parameterType="UserDTO"> delete from
+		report_table where user_id = #{user_id} </delete>
+
+	<delete id="deleteB_idx" parameterType="BoardDTO"> delete from
+		report_table where b_idx = #{b_idx} </delete>
+		
+	<select id="ShowAllReports" resultType="ReportDTO">
+		select * from report_table
+	</select>
+	
+	<select id="countReport" parameterType="BoardDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM report_table
+        WHERE b_idx = #{b_idx}
+    </select>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="Database/Db.properties"></properties>
+	<typeAliases>
+		<typeAlias type="com.doo.model.UserDTO" alias="UserDTO" />
+		<typeAlias type="com.doo.model.ProfileImgDTO" alias="ProfileImgDTO" />
+		<typeAlias type="com.doo.model.BoardDTO" alias="BoardDTO" />
+		<typeAlias type="com.doo.model.MessageDTO" alias = "MessageDTO"/> 
+		<typeAlias type="com.doo.model.ReportDTO" alias="ReportDTO" />
+		<typeAlias type="com.doo.model.CommentDTO" alias="CommentDTO" />
+		<typeAlias type="com.doo.model.LikeDTO" alias="LikeDTO" />
+		<typeAlias type="com.doo.model.BadgeDTO" alias="BadgeDTO" />
+	</typeAliases> 
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="Database/UserMapper.xml" />
+		<mapper resource="Database/ProfileImgMapper.xml" />
+		<mapper resource="Database/BoardMapper.xml" />
+		<mapper resource="Database/MessageMapper.xml"/>
+		<mapper resource="Database/ReportMapper.xml" />
+		<mapper resource="Database/CommentMapper.xml" />
+		<mapper resource="Database/LikeMapper.xml" />
+		<mapper resource="Database/BadgeMapper.xml" />
+	</mappers>
+</configuration>
