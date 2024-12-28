@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Database.MessageMapper">
+
+	
+	<insert id="insertMessage" parameterType="MessageDTO">
+		insert into MESSAGE_TABLE values(MESSAGE_ID.nextval, #{SENDER_ID},#{RECEIVER_ID},#{MESSAGE_CONTENT})
+	</insert>
+
+	<select id="showMessage" parameterType="String" resultType="MessageDTO">
+		select * from MESSAGE_TABLE where RECEIVER_ID=#{userId} ORDER BY MESSAGE_ID ASC
+	</select>
+
+	<delete id="deleteMessage" parameterType="int">
+		delete from MESSAGE_TABLE where MESSAGE_ID=#{MESSAGE_ID}
+	</delete>
+	
+	<!-- 관리자 계정을 접속해서 회원정보를 삭제 할 때 user_id에 대한 자식테이블(board_table)삭제 기능  -->
+	<delete id="deleteMessageTableReceiver" parameterType="UserDTO">
+		delete from MESSAGE_TABLE where receiver_id = #{user_id}
+	</delete>
+	
+	<delete id="deleteMessageTableSender" parameterType="UserDTO">
+		delete from MESSAGE_TABLE where sender_id = #{user_id}
+	</delete>
+
+
+</mapper>

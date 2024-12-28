@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Database.UserMapper">
+	<select id="login" parameterType="UserDTO" resultType="UserDTO">
+		select *
+		from user_table where user_id = #{user_id} and user_pw = #{user_pw}
+	</select>
+	
+	<select id="profileLoading" parameterType="UserDTO" resultType="UserDTO">
+		select *
+		from user_table where user_id = #{user_id}
+	</select>
+
+	<insert id="join" parameterType="UserDTO">
+		insert into user_table(user_id,
+		user_pw, user_birthdate, user_name,user_phone, user_gender, joined_at,
+		user_type, user_nick) VALUES(#{user_id},#{user_pw}, #{user_birthdate},
+		#{user_name}, #{user_phone},#{user_gender}, sysdate, 'U',#{user_nick})
+	</insert>
+
+	<update id="pwupdate" parameterType="UserDTO">
+		update user_table set
+		user_pw=#{user_pw}
+		where user_id=#{user_id}
+	</update>
+	
+	<update id="updateInfo" parameterType="UserDTO">
+		 update user_table set user_pw=#{user_pw}, user_nick=#{user_nick} where user_id=#{user_id}
+	</update>
+	
+	<delete id="deleteId" parameterType="String">
+		delete from user_table where user_id=#{user_id} and user_pw = #{user_pw}
+	</delete>
+	
+	<!-- admin삭제 기능으로 유저타입이 'A'인 경우만 제외하고 모든 유저의 정보를 불러오게 하기 -->
+	<select id="allusers" resultType="UserDTO">
+		select * from user_table where not(user_type='A')
+	</select>
+
+	<!-- 관리자만 삭제가 가능한 기능 -->
+	<delete id="AdminDeleteId" parameterType="UserDTO">
+		delete from user_table where user_id=#{user_id}
+	</delete>
+	
+	<!-- 9-24 12:41 아이디중복확인쿼리 -->
+    <select id="checkIdDuplicate" parameterType="UserDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM user_table
+        WHERE user_id = #{user_id}
+    </select>
+	
+
+</mapper>

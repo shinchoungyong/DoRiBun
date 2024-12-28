@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Database.ProfileImgMapper">
+
+	<insert id="insertProfileImg" parameterType="ProfileImgDTO">
+		insert into profileimg_table VALUES(#{user_id},#{user_img})
+	</insert>
+	
+	<select id="laodingImg" parameterType="UserDTO" resultType="ProfileImgDTO">
+	 	select * from profileimg_table where user_id = #{user_id}
+	</select>
+	
+	<update id="updateProfileImg" parameterType="ProfileImgDTO">
+		 update profileimg_table set user_img = #{user_img} where user_id=#{user_id}
+	</update>
+	
+	<!-- 관리자 계정을 접속해서 회원정보를 삭제 할 때 user_id에 대한 자식테이블(ProfileImg_Table)삭제 기능  -->
+	<delete id="deleteUserFromProfileImgTable">
+		delete from profileimg_table where user_id = #{user_id}
+	</delete>
+
+</mapper>
