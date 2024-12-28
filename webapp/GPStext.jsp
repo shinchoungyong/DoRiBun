@@ -84,7 +84,7 @@
     </script>
 
     <!-- Google Maps API키 입력 -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkMKSuFICn4ZYgCu-u50vBYzXmLSj8Tuo"></script>
+    <script src="https://maps.googleapis.com/maps/api/(key value)"></script>
 
 </body>
 </html>
