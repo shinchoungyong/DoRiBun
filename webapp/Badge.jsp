@@ -168,7 +168,7 @@ h1 {
 	</div>
 	<script>
 		function goProfile() {
-			alert('프로필 페이지로 이동합니다.'); // 메인페이지로 돌아가는 버튼함수 !
+			alert('프로필 페이지로 이동합니다.'); // 메인페이지로 돌아가는 버튼함수
 			window.location.href = "Profile.jsp";
 		}
 	</script>
